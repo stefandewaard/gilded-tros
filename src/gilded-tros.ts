@@ -2,7 +2,10 @@ import { Item } from "./item";
 
 export class GildedTros {
 	constructor(public items: Array<Item>) {}
-
+	/**
+	 * Update all items.
+	 * @constructor
+	 */
 	public updateQuality(): void {
 		this.items.forEach((item) => {
 			switch (item.name) {
@@ -14,6 +17,7 @@ export class GildedTros {
 					item = this.updateBackstagePasses(item);
 					break;
 				case "B-DAWG Keychain":
+					item = item;
 					break;
 				default:
 					item = this.updateOne(item);
@@ -35,6 +39,11 @@ export class GildedTros {
 		return item;
 	}
 
+	/**
+	 * Update Good Wine item.
+	 * @constructor
+	 * @param {Item} item - The item.
+	 */
 	private updateGoodWine(item: Item): Item {
 		const { sellIn, quality } = item;
 		item.sellIn = sellIn - 1;
@@ -42,6 +51,11 @@ export class GildedTros {
 		return item;
 	}
 
+	/**
+	 * Update a Backstage passes item.
+	 * @constructor
+	 * @param {Item} item - The item.
+	 */
 	private updateBackstagePasses(item: Item): Item {
 		const { sellIn, quality } = item;
 		item.sellIn = sellIn - 1;
