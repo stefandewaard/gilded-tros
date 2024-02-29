@@ -59,14 +59,14 @@ export class GildedTros {
 	private updateBackstagePasses(item: Item): Item {
 		const { sellIn, quality } = item;
 		item.sellIn = sellIn - 1;
-		if (sellIn <= 10) {
-			item.quality = quality < 50 ? quality + 2 : 50;
-		} else if (sellIn <= 5) {
-			item.quality = quality < 50 ? quality + 3 : 50;
-		} else if (sellIn <= 0) {
+		if (sellIn <= 0) {
 			item.quality = 0;
+		} else if (sellIn <= 5) {
+			item.quality = quality < 80 ? quality + 3 : 80;
+		} else if (sellIn <= 10) {
+			item.quality = quality < 80 ? quality + 2 : 80;
 		} else {
-			item.quality = quality < 50 ? quality + 1 : 50;
+			item.quality = quality < 80 ? quality + 1 : 80;
 		}
 		return item;
 	}
