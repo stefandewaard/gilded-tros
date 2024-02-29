@@ -4,7 +4,7 @@ export class GildedTros {
 	constructor(public items: Array<Item>) {}
 
 	public updateQuality(): void {
-		for (let item of this.items) {
+		this.items.forEach((item) => {
 			switch (item.name) {
 				case "Good Wine":
 					item = this.updateGoodWine(item);
@@ -13,16 +13,20 @@ export class GildedTros {
 				case "Backstage passes for HAXX":
 					item = this.updateBackstagePasses(item);
 					break;
-					break;
 				case "B-DAWG Keychain":
 					break;
 				default:
 					item = this.updateOne(item);
 					break;
 			}
-		}
+		});
 	}
 
+	/**
+	 * Update a normal item.
+	 * @constructor
+	 * @param {Item} item - The item.
+	 */
 	private updateOne(item: Item): Item {
 		const { sellIn, quality } = item;
 		item.sellIn = sellIn - 1;
@@ -32,10 +36,24 @@ export class GildedTros {
 	}
 
 	private updateGoodWine(item: Item): Item {
+		const { sellIn, quality } = item;
+		item.sellIn = sellIn - 1;
+		item.quality = quality < 50 ? quality + 1 : quality;
 		return item;
 	}
 
 	private updateBackstagePasses(item: Item): Item {
+		const { sellIn, quality } = item;
+		item.sellIn = sellIn - 1;
+		if (sellIn <= 10) {
+			item.quality = quality < 50 ? quality + 2 : 50;
+		} else if (sellIn <= 5) {
+			item.quality = quality < 50 ? quality + 3 : 50;
+		} else if (sellIn <= 0) {
+			item.quality = 0;
+		} else {
+			item.quality = quality < 50 ? quality + 1 : 50;
+		}
 		return item;
 	}
 }
