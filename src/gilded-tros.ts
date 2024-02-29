@@ -4,7 +4,6 @@ export class GildedTros {
 	constructor(public items: Array<Item>) {}
 	/**
 	 * Update all items.
-	 * @constructor
 	 */
 	public updateQuality(): void {
 		this.items.forEach((item) => {
@@ -19,6 +18,11 @@ export class GildedTros {
 				case "B-DAWG Keychain":
 					item = item;
 					break;
+				case "Duplicate Code":
+				case "Long Methods":
+				case "Ugly Variable Names":
+					item = this.updateSmellyItems(item);
+					break;
 				default:
 					item = this.updateOne(item);
 					break;
@@ -28,20 +32,17 @@ export class GildedTros {
 
 	/**
 	 * Update a normal item.
-	 * @constructor
 	 * @param {Item} item - The item.
 	 */
 	private updateOne(item: Item): Item {
 		const { sellIn, quality } = item;
 		item.sellIn = sellIn - 1;
-		item.quality =
-			quality > 0 ? (sellIn < 0 ? quality - 2 : quality - 1) : quality;
+		item.quality = quality > 0 ? (sellIn <= 0 ? quality - 2 : quality - 1) : 0;
 		return item;
 	}
 
 	/**
 	 * Update Good Wine item.
-	 * @constructor
 	 * @param {Item} item - The item.
 	 */
 	private updateGoodWine(item: Item): Item {
@@ -53,7 +54,6 @@ export class GildedTros {
 
 	/**
 	 * Update a Backstage passes item.
-	 * @constructor
 	 * @param {Item} item - The item.
 	 */
 	private updateBackstagePasses(item: Item): Item {
@@ -68,6 +68,16 @@ export class GildedTros {
 		} else {
 			item.quality = quality < 50 ? quality + 1 : 50;
 		}
+		return item;
+	}
+	/**
+	 * Update a smelly item.
+	 * @param {Item} item - The item.
+	 */
+	private updateSmellyItems(item: Item): Item {
+		const { sellIn, quality } = item;
+		item.sellIn = sellIn - 1;
+		item.quality = quality > 0 ? quality - 2 : 0;
 		return item;
 	}
 }
