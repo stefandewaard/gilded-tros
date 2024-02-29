@@ -36,7 +36,7 @@ export class GildedTros {
 	 */
 	private updateOne(item: Item): Item {
 		const { sellIn, quality } = item;
-		item.sellIn = sellIn - 1;
+		item.sellIn--;
 		item.quality = quality > 0 ? (sellIn <= 0 ? quality - 2 : quality - 1) : 0;
 		return item;
 	}
@@ -46,8 +46,8 @@ export class GildedTros {
 	 * @param {Item} item - The item.
 	 */
 	private updateGoodWine(item: Item): Item {
-		const { sellIn, quality } = item;
-		item.sellIn = sellIn - 1;
+		const { quality } = item;
+		item.sellIn--;
 		item.quality = quality < 50 ? quality + 1 : quality;
 		return item;
 	}
@@ -58,7 +58,7 @@ export class GildedTros {
 	 */
 	private updateBackstagePasses(item: Item): Item {
 		const { sellIn, quality } = item;
-		item.sellIn = sellIn - 1;
+		item.sellIn--;
 		if (sellIn <= 0) {
 			item.quality = 0;
 		} else if (sellIn <= 5) {
@@ -75,8 +75,8 @@ export class GildedTros {
 	 * @param {Item} item - The item.
 	 */
 	private updateSmellyItems(item: Item): Item {
-		const { sellIn, quality } = item;
-		item.sellIn = sellIn - 1;
+		const { quality } = item;
+		item.sellIn--;
 		item.quality = quality > 0 ? quality - 2 : 0;
 		return item;
 	}
