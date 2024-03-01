@@ -18,10 +18,12 @@ describe("GildedTrosTest", () => {
 	});
 
 	describe("Update B-DAWG Keychain", () => {
-		const items = [new Item("B-DAWG Keychain", 10, 0)];
-		const app = new GildedTros(items);
-		app.updateQuality();
-		expect(items).toStrictEqual([new Item("B-DAWG Keychain", 10, 0)]);
+		it("should stay the same", () => {
+			const items = [new Item("B-DAWG Keychain", 10, 0)];
+			const app = new GildedTros(items);
+			app.updateQuality();
+			expect(items).toStrictEqual([new Item("B-DAWG Keychain", 10, 0)]);
+		});
 	});
 
 	describe("Update Good Wine item", () => {
